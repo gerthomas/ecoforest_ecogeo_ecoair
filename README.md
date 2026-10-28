@@ -1,26 +1,57 @@
-[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua/)
+# Ecoforest EcoAir (read/write) for Home Assistant
 
-Ecoforest EcoGeo heat pump integration PoC (proof of concept, thus may lack features or stability)
+Ecoforest ecoAIR heat pump integration PoC (proof of concept, thus may lack features or stability).
+Fork of [bytestorm/ecoforest_ecogeo](https://github.com/bytestorm/ecoforest_ecogeo), reworked for ecoAIR units using the
+documented ecoAIR Modbus table. The read side is shared with the read-only fork `ecoforest_ecoair_ro`
+(based on [ostracon/ecoforest_ecogeo](https://github.com/ostracon/ecoforest_ecogeo)); credit to both authors.
 
-To install this integration, add this GitHub Repo to the HACS Custom Repositories or use the button below
+**Status:** the sensors were tested on an ecoAIR through an Easynet Geo 2.13 gateway (read-only fork). The write path and the
+control entities in this fork have only been tested against simulated responses; try them with care.
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bytestorm&repository=ecoforest_ecogeo&category=integration)
+## Install
 
-After installing the integration in HACS
-- Restart Home Assistant 
-- Go to "Settings" -> "Devices & Services" -> "Add integration"
-- Look for "Ecoforest Ecogeo" integration to start setting it up
-- For "Ecoforest Easynet URL" use the web interface address of your heat pump (e.g. http://192.168.1.200/)
-- Username is your heat pump serial number (same as its web interface)
-- Password is the first 8 characters of the original wireless network password (same as its web interface)
-- Optionally, you can specify an alias that will be used instead of the model name to generate entity prefixes
+1. In HACS, add this repository as a custom repository (category: Integration), install, restart Home Assistant.
+2. Settings -> Devices & Services -> Add integration -> "Ecoforest EcoAir (read/write)".
+3. Fields:
+   - **Ecoforest Easynet URL**: the web address of the gateway, e.g. `http://192.168.1.200/`
+   - **Username**: the heat pump serial number (same as the web interface)
+   - **Password**: the first 8 characters of the original wireless network password (same as the web interface)
+   - **Alias** (optional): used instead of the model name for entity prefixes
+   - **Allow control (writes)**: off by default. With it off the integration never writes to the heat pump.
 
+Do not run this at the same time as another Ecoforest integration polling the same gateway, and remove other forks
+(`ecoforest_ecoair_ro`, the original ecogeo) first so entities do not clash. To change the control option later, remove and re-add the integration.
 
-------------
+## Sensors
+
+160 sensors from the documented table (temperatures on both units, pressures, fan/pump/valve regulation, setpoints,
+instantaneous power in kW, COP/EER, compressor speed and reference, coils as 0/1, annual and monthly energy counters).
+Monthly counters, performance factors and BUS setpoints are disabled by default. Entity ids contain `air_`
+(for example `sensor.<model>_air_outdoor_temperature`). Energy counters are raw numbers; kWh or MWh follows coils 203-205.
+
+## Controls (only with "Allow control" ticked)
+
+Only registers the documented table itself shows as writable are exposed:
+
+| Entity | Register | Values |
+|---|---|---|
+| Heat pump on/off by BUS (select) | 5257 | keyboard, off, on, emergency |
+| BUS demand SG1 (select) | 5183 | nothing, heating, cooling |
+| BUS heating SG1 setpoint (number) | 170 | 0 to 60 degrees C |
+
+These change how the heat pump runs. "keyboard" hands control back to the unit; "emergency" is the unit's emergency mode.
+Every write is checked before it is sent (exact register, exact value range, single register), then read back and logged if it
+differs. Nothing else can be written: other BUS registers are deliberately not exposed until they are verified against the manufacturer's
+documentation. To add one, extend `CONTROLS` in `ecoair_controls.py` and the tests.
+
+`Registers.csv` in this repository is the generic ecoGEO table. The same addresses mean different things on ecoAIR
+(for example address 175 is a compressor limit there but a BUS setpoint here), so never use it to decide what is safe to write.
+
+---
 
 Custom visualization:
 
-![flow](https://github.com/bytestorm/ecoforest_ecogeo/blob/master/flow.png?raw=true)
+![flow](https://github.com/YOUR-GITHUB-USERNAME/ecoforest_ecogeo_ecoair/blob/master/flow.png?raw=true)
 
 <details>
   <summary>Details...</summary>
@@ -33,7 +64,7 @@ Custom visualization:
 type: custom:power-flow-card-plus
 entities:
   grid:
-    entity: sensor.ebfhbb_power_electric
+    entity: sensor.<model>_air_electric_power
     display_state: one_way_no_zero
     name: Consumption
     color:
@@ -42,12 +73,12 @@ entities:
         - 122
         - 39
   home:
-    entity: sensor.ebfhbb_power_output
+    entity: sensor.<model>_air_heating_power
     icon: mdi:hvac
     subtract_individual: false
     override_state: true
     secondary_info:
-      entity: sensor.ebfhbb_t_outdoor
+      entity: sensor.<model>_air_outdoor_temperature
       unit_of_measurement: °C
       decimals: 1
   individual:

@@ -1,0 +1,535 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "host": "Ecoforest Easynet URL (e.g. http://192.168.1.200/)",
+          "username": "Username",
+          "password": "Password",
+          "alias": "Alias",
+          "allow_control": "Allow control (writes)"
+        },
+        "data_description": {
+          "alias": "Leave alias blank to use the heat pump model as a device ID",
+          "allow_control": "Adds a few documented controls (on/off by BUS, BUS demand SG1, BUS heating setpoint SG1). They change how your heat pump runs; leave off to keep the integration read-only. To change this later, remove and re-add the integration."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect. Check the URL, the credentials and the gateway (details are in the Home Assistant log).",
+      "invalid_auth": "Invalid authentication. Check the serial number and password.",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "air_outlet_temp_indoor_unit": {
+        "name": "Outlet temperature indoor unit"
+      },
+      "air_inlet_temp_indoor_unit": {
+        "name": "Inlet temperature indoor unit"
+      },
+      "air_compressor_suction_intermediate": {
+        "name": "Compressor suction intermediate value"
+      },
+      "air_outlet_temp_outdoor_unit": {
+        "name": "Outlet temperature outdoor unit"
+      },
+      "air_inlet_temp_outdoor_unit": {
+        "name": "Inlet temperature outdoor unit"
+      },
+      "air_heating_circuit_pressure": {
+        "name": "Heating circuit pressure"
+      },
+      "air_compressor_suction_pressure": {
+        "name": "Compressor suction pressure"
+      },
+      "air_compressor_suction_temp": {
+        "name": "Compressor suction temperature"
+      },
+      "air_compressor_discharge_pressure": {
+        "name": "Compressor discharge pressure"
+      },
+      "air_compressor_discharge_temp": {
+        "name": "Compressor discharge temperature"
+      },
+      "air_dhw_temperature": {
+        "name": "DHW temperature"
+      },
+      "air_dhw_inlet_temperature": {
+        "name": "DHW inlet temperature"
+      },
+      "air_supply_temp_sg2": {
+        "name": "Supply temperature SG2"
+      },
+      "air_supply_temp_sg3_boiler": {
+        "name": "Supply temperature SG3 / boiler"
+      },
+      "air_heating_buffer_tank_temp": {
+        "name": "Heating buffer tank temperature"
+      },
+      "air_cooling_buffer_tank_temp": {
+        "name": "Cooling buffer tank temperature"
+      },
+      "air_pool_temperature": {
+        "name": "Pool temperature"
+      },
+      "air_outdoor_temperature": {
+        "name": "Outdoor temperature"
+      },
+      "air_supply_temp_sg1": {
+        "name": "Supply temperature SG1"
+      },
+      "air_heating_buffer_tank_setpoint": {
+        "name": "Heating buffer tank setpoint"
+      },
+      "air_cooling_buffer_tank_setpoint": {
+        "name": "Cooling buffer tank setpoint"
+      },
+      "air_condensation_temperature": {
+        "name": "Condensation temperature"
+      },
+      "air_superheat": {
+        "name": "Superheat"
+      },
+      "air_evaporation_temperature": {
+        "name": "Evaporation temperature"
+      },
+      "air_expansion_valve_open": {
+        "name": "Expansion valve open"
+      },
+      "air_distribution_pump_regulation": {
+        "name": "Distribution pump regulation"
+      },
+      "air_fan_regulation": {
+        "name": "Fan regulation"
+      },
+      "air_shunt_sg2_regulation": {
+        "name": "Shunt group SG2 regulation"
+      },
+      "air_shunt_sg3_boiler_regulation": {
+        "name": "Shunt group SG3 / boiler regulation"
+      },
+      "air_shunt_sg1_regulation": {
+        "name": "Shunt group SG1 regulation"
+      },
+      "air_dhw_setpoint": {
+        "name": "DHW setpoint"
+      },
+      "air_heating_sg1_setpoint": {
+        "name": "Heating SG1 setpoint"
+      },
+      "air_heating_sg2_setpoint": {
+        "name": "Heating SG2 setpoint"
+      },
+      "air_heating_sg3_setpoint": {
+        "name": "Heating SG3 setpoint"
+      },
+      "air_cooling_sg1_setpoint": {
+        "name": "Cooling SG1 setpoint"
+      },
+      "air_cooling_sg2_setpoint": {
+        "name": "Cooling SG2 setpoint"
+      },
+      "air_cooling_sg3_setpoint": {
+        "name": "Cooling SG3 setpoint"
+      },
+      "air_heating_power": {
+        "name": "Instantaneous heating power"
+      },
+      "air_cooling_power": {
+        "name": "Instantaneous cooling power"
+      },
+      "air_electric_power": {
+        "name": "Instantaneous electric power"
+      },
+      "air_cop": {
+        "name": "Instantaneous heating performance (COP)"
+      },
+      "air_eer": {
+        "name": "Instantaneous cooling performance (EER)"
+      },
+      "air_pool_setpoint": {
+        "name": "Pool setpoint"
+      },
+      "air_bus_thermostat_setpoint_sg1": {
+        "name": "BUS thermostat setpoint SG1"
+      },
+      "air_bus_thermostat_setpoint_sg2": {
+        "name": "BUS thermostat setpoint SG2"
+      },
+      "air_bus_thermostat_setpoint_sg3": {
+        "name": "BUS thermostat setpoint SG3"
+      },
+      "air_room_temp_terminal_1": {
+        "name": "Room temperature terminal 1"
+      },
+      "air_room_temp_terminal_2": {
+        "name": "Room temperature terminal 2"
+      },
+      "air_room_temp_terminal_3": {
+        "name": "Room temperature terminal 3"
+      },
+      "air_bus_dhw_setpoint": {
+        "name": "BUS DHW setpoint"
+      },
+      "air_bus_pool_setpoint": {
+        "name": "BUS pool setpoint"
+      },
+      "air_bus_heating_sg1_setpoint": {
+        "name": "BUS heating SG1 setpoint"
+      },
+      "air_bus_heating_sg2_setpoint": {
+        "name": "BUS heating SG2 setpoint"
+      },
+      "air_bus_heating_sg3_setpoint": {
+        "name": "BUS heating SG3 setpoint"
+      },
+      "air_bus_cooling_sg1_setpoint": {
+        "name": "BUS cooling SG1 setpoint"
+      },
+      "air_bus_cooling_sg2_setpoint": {
+        "name": "BUS cooling SG2 setpoint"
+      },
+      "air_bus_cooling_sg3_setpoint": {
+        "name": "BUS cooling SG3 setpoint"
+      },
+      "air_indoor_circulator_regulation": {
+        "name": "Circulator pump indoor unit regulation"
+      },
+      "air_outlet_dt_outdoor_regulation": {
+        "name": "Outlet DT outdoor unit regulation"
+      },
+      "air_outlet_dt_indoor_regulation": {
+        "name": "Outlet DT indoor unit regulation"
+      },
+      "air_fan_dt_regulation": {
+        "name": "DT fan regulation"
+      },
+      "air_frost_percent": {
+        "name": "Frost"
+      },
+      "air_compressor_reference": {
+        "name": "Current compressor reference"
+      },
+      "air_spf_month": {
+        "name": "Monthly SPF"
+      },
+      "air_spf_year": {
+        "name": "Year SPF"
+      },
+      "air_compressor_speed": {
+        "name": "Compressor speed (rpm)"
+      },
+      "air_annual_heating_energy": {
+        "name": "Annual heating energy"
+      },
+      "air_annual_cooling_energy": {
+        "name": "Annual cooling energy"
+      },
+      "air_annual_electric_energy": {
+        "name": "Annual electric energy"
+      },
+      "air_room_humidity_zone_1": {
+        "name": "Room humidity zone 1"
+      },
+      "air_room_humidity_zone_2": {
+        "name": "Room humidity zone 2"
+      },
+      "air_room_humidity_zone_3": {
+        "name": "Room humidity zone 3"
+      },
+      "air_bus_dhw_demand": {
+        "name": "BUS DHW demand"
+      },
+      "air_bus_pool_demand": {
+        "name": "BUS pool demand"
+      },
+      "air_bus_demand_sg1": {
+        "name": "BUS demand SG1"
+      },
+      "air_bus_demand_sg2": {
+        "name": "BUS demand SG2"
+      },
+      "air_bus_demand_sg3": {
+        "name": "BUS demand SG3"
+      },
+      "air_heat_pump_program": {
+        "name": "Heat pump program"
+      },
+      "air_bus_control": {
+        "name": "Heat pump on/off by BUS"
+      },
+      "air_di_evu_signal": {
+        "name": "EVU signal (DI7)"
+      },
+      "air_di_summer_winter": {
+        "name": "Summer/winter selection (DI8)"
+      },
+      "air_di_dhw_activation": {
+        "name": "DHW activation (DI9)"
+      },
+      "air_di_pool_activation": {
+        "name": "Pool activation (DI10)"
+      },
+      "air_di_heating_demand_sg1": {
+        "name": "Heating demand SG1 (DI1)"
+      },
+      "air_di_cooling_demand_sg1": {
+        "name": "Cooling demand SG1 (DI2)"
+      },
+      "air_di_heating_demand_sg2": {
+        "name": "Heating demand SG2 (DI3)"
+      },
+      "air_di_cooling_demand_sg2": {
+        "name": "Cooling demand SG2 (DI4)"
+      },
+      "air_di_heating_demand_sg3": {
+        "name": "Heating demand SG3 (DI5)"
+      },
+      "air_di_cooling_demand_sg3": {
+        "name": "Cooling demand SG3 (DI6)"
+      },
+      "air_out_circulator_pump_hydraulic_kit": {
+        "name": "Circulator pump hydraulic kit"
+      },
+      "air_out_pool": {
+        "name": "Pool active"
+      },
+      "air_out_dhw": {
+        "name": "DHW active"
+      },
+      "air_out_dhw_recirculation": {
+        "name": "DHW recirculation active"
+      },
+      "air_out_production_valve": {
+        "name": "Production valve (0 heating, 1 cooling)"
+      },
+      "air_out_consumed_valve": {
+        "name": "Consumed valve (0 heating, 1 cooling)"
+      },
+      "air_out_sg1": {
+        "name": "SG1 active"
+      },
+      "air_out_sg2": {
+        "name": "SG2 active"
+      },
+      "air_out_sg3": {
+        "name": "SG3 active"
+      },
+      "air_out_aux_heater_buffer": {
+        "name": "Auxiliary equipment / buffer heater active"
+      },
+      "air_out_dhw_electric_heater": {
+        "name": "DHW electric heater active"
+      },
+      "air_out_alarm": {
+        "name": "Alarm signal (0 = no alarms)"
+      },
+      "air_out_fan": {
+        "name": "Fan active"
+      },
+      "air_out_outdoor_pump": {
+        "name": "Outdoor production pump active"
+      },
+      "air_out_cycle_inversion_valve": {
+        "name": "Cycle inversion valve"
+      },
+      "air_out_evi_valve": {
+        "name": "EVI valve"
+      },
+      "air_out_condensate_heater": {
+        "name": "Condensate tray heater active"
+      },
+      "air_bus_on_off": {
+        "name": "Heat pump on by BUS"
+      },
+      "air_program_summer": {
+        "name": "Program summer"
+      },
+      "air_program_winter": {
+        "name": "Program winter"
+      },
+      "air_units_heating_year_mwh": {
+        "name": "Annual heating energy unit (0 kWh, 1 MWh)"
+      },
+      "air_units_cooling_year_mwh": {
+        "name": "Annual cooling energy unit (0 kWh, 1 MWh)"
+      },
+      "air_units_electric_year_mwh": {
+        "name": "Annual electric energy unit (0 kWh, 1 MWh)"
+      },
+      "air_pf_jan": {
+        "name": "Performance factor January"
+      },
+      "air_cooling_energy_jan": {
+        "name": "January cooling energy"
+      },
+      "air_heating_energy_jan": {
+        "name": "January heating energy"
+      },
+      "air_electric_energy_jan": {
+        "name": "January electric energy"
+      },
+      "air_pf_feb": {
+        "name": "Performance factor February"
+      },
+      "air_cooling_energy_feb": {
+        "name": "February cooling energy"
+      },
+      "air_heating_energy_feb": {
+        "name": "February heating energy"
+      },
+      "air_electric_energy_feb": {
+        "name": "February electric energy"
+      },
+      "air_pf_mar": {
+        "name": "Performance factor March"
+      },
+      "air_cooling_energy_mar": {
+        "name": "March cooling energy"
+      },
+      "air_heating_energy_mar": {
+        "name": "March heating energy"
+      },
+      "air_electric_energy_mar": {
+        "name": "March electric energy"
+      },
+      "air_pf_apr": {
+        "name": "Performance factor April"
+      },
+      "air_cooling_energy_apr": {
+        "name": "April cooling energy"
+      },
+      "air_heating_energy_apr": {
+        "name": "April heating energy"
+      },
+      "air_electric_energy_apr": {
+        "name": "April electric energy"
+      },
+      "air_pf_may": {
+        "name": "Performance factor May"
+      },
+      "air_cooling_energy_may": {
+        "name": "May cooling energy"
+      },
+      "air_heating_energy_may": {
+        "name": "May heating energy"
+      },
+      "air_electric_energy_may": {
+        "name": "May electric energy"
+      },
+      "air_pf_jun": {
+        "name": "Performance factor June"
+      },
+      "air_cooling_energy_jun": {
+        "name": "June cooling energy"
+      },
+      "air_heating_energy_jun": {
+        "name": "June heating energy"
+      },
+      "air_electric_energy_jun": {
+        "name": "June electric energy"
+      },
+      "air_pf_jul": {
+        "name": "Performance factor July"
+      },
+      "air_cooling_energy_jul": {
+        "name": "July cooling energy"
+      },
+      "air_heating_energy_jul": {
+        "name": "July heating energy"
+      },
+      "air_electric_energy_jul": {
+        "name": "July electric energy"
+      },
+      "air_pf_aug": {
+        "name": "Performance factor August"
+      },
+      "air_cooling_energy_aug": {
+        "name": "August cooling energy"
+      },
+      "air_heating_energy_aug": {
+        "name": "August heating energy"
+      },
+      "air_electric_energy_aug": {
+        "name": "August electric energy"
+      },
+      "air_pf_sep": {
+        "name": "Performance factor September"
+      },
+      "air_cooling_energy_sep": {
+        "name": "September cooling energy"
+      },
+      "air_heating_energy_sep": {
+        "name": "September heating energy"
+      },
+      "air_electric_energy_sep": {
+        "name": "September electric energy"
+      },
+      "air_pf_oct": {
+        "name": "Performance factor October"
+      },
+      "air_cooling_energy_oct": {
+        "name": "October cooling energy"
+      },
+      "air_heating_energy_oct": {
+        "name": "October heating energy"
+      },
+      "air_electric_energy_oct": {
+        "name": "October electric energy"
+      },
+      "air_pf_nov": {
+        "name": "Performance factor November"
+      },
+      "air_cooling_energy_nov": {
+        "name": "November cooling energy"
+      },
+      "air_heating_energy_nov": {
+        "name": "November heating energy"
+      },
+      "air_electric_energy_nov": {
+        "name": "November electric energy"
+      },
+      "air_pf_dec": {
+        "name": "Performance factor December"
+      },
+      "air_cooling_energy_dec": {
+        "name": "December cooling energy"
+      },
+      "air_heating_energy_dec": {
+        "name": "December heating energy"
+      },
+      "air_electric_energy_dec": {
+        "name": "December electric energy"
+      }
+    },
+    "select": {
+      "air_ctl_bus_control": {
+        "name": "Heat pump on/off by BUS",
+        "state": {
+          "keyboard": "Keyboard",
+          "off": "Off",
+          "on": "On",
+          "emergency": "Emergency"
+        }
+      },
+      "air_ctl_bus_demand_sg1": {
+        "name": "BUS demand SG1",
+        "state": {
+          "nothing": "Nothing",
+          "heating": "Heating",
+          "cooling": "Cooling"
+        }
+      }
+    },
+    "number": {
+      "air_ctl_bus_heating_setpoint_sg1": {
+        "name": "BUS heating SG1 setpoint"
+      }
+    }
+  }
+}
